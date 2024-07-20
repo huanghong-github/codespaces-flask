@@ -6,8 +6,6 @@ from app.core.settings import settings
 
 engine = create_engine(settings.SQLALCHEMY_DATABASE_URI)
 
-# 初始化数据库连接:
-
 
 def get_db() -> Generator[Session, Any, None]:
     with Session(engine) as session:

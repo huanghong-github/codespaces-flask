@@ -1,3 +1,6 @@
+import logging
+
+from fastapi.logger import logger
 from pydantic import computed_field
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings
@@ -43,3 +46,12 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+fmt = logging.Formatter(
+    fmt="%(asctime)s [%(filename)s-line:%(lineno)d-%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+fhandler = logging.FileHandler("logs/app.log")
+fhandler.setFormatter(fmt)
+logger.setLevel(logging.INFO)
+logger.addHandler(fhandler)

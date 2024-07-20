@@ -1,12 +1,11 @@
 import random
-import re
 import string
 import time
 import traceback
 
 from fastapi import APIRouter
-from fastapi.logger import logger
 
+from app.core.settings import logger
 from app.depends import SessionDep
 from app.models.user import User, UserBase, UserRegist
 from app.services.user_service import UserService
@@ -21,8 +20,9 @@ router = APIRouter()
 @router.post("/login")
 async def login(user_login: UserBase, session: SessionDep):
     """
-    OAuth2 compatible token login, get an access token for future requests
+    登录
     """
+    logger.info(f"login: {user_login.email}")
     us = UserService(session)
     user = us.get_user_by_email(user_login.email)
     if not user or not PasswordUtil.verify_password(user_login.password, user.password):
@@ -52,8 +52,9 @@ async def login(user_login: UserBase, session: SessionDep):
 @router.post("/regist")
 async def regist(user_regist: UserRegist, session: SessionDep):
     """
-    OAuth2 compatible token login, get an access token for future requests
+    注册
     """
+    logger.info(f"login: {user_regist.email}")
     us = UserService(session)
     if us.get_user_by_email(user_regist.email):
         return common.falseReturn({}, "user already exists")
@@ -76,7 +77,7 @@ async def regist(user_regist: UserRegist, session: SessionDep):
 @router.post("/send_email")
 async def send_email(request, session: SessionDep):
     """
-    OAuth2 compatible token login, get an access token for future requests
+    发邮件
     """
     email = request.POST.get("email")
     us = UserService(session)

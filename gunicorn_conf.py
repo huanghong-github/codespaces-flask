@@ -1,8 +1,8 @@
 # 监听内网端口
-bind = '0.0.0.0:8000'
+bind = "0.0.0.0:8000"
 
 # 工作目录
-chdir = './'
+chdir = "./"
 
 # 并行工作进程数
 workers = 4
@@ -22,36 +22,35 @@ timeout = 120
 daemon = False
 
 # 工作模式协程
-worker_class = 'uvicorn.workers.UvicornWorker'
+worker_class = "uvicorn.workers.UvicornWorker"
 
 # 设置最大并发量
 worker_connections = 2000
 
 # 设置进程文件目录
-pidfile = './logs/gunicorn.pid'
+pidfile = "./logs/gunicorn.pid"
 
 # 设置访问日志和错误信息日志路径
 # accesslog = './logs/gunicorn_access.log'
 # errorlog = './logs/gunicorn_error.log'
 
 # 如果supervisor管理gunicorn
-errorlog = '-'
-accesslog = '-'
+errorlog = "-"
+accesslog = "-"
 
 # 设置gunicron访问日志格式，错误日志无法设置
-access_log_format = '%(h) -  %(t)s - %(u)s - %(s)s %(H)s'
+access_log_format = "%(h) -  %(t)s - %(u)s - %(s)s %(H)s"
 
 # 设置这个值为true 才会把打印信息记录到错误日志里
 capture_output = True
 
 # 设置日志记录水平
-loglevel = 'debug'
+loglevel = "debug"
 
 
 # python程序
-pythonpath = '/home/codespace/.python/current/bin/python'
+# pythonpath = '/home/codespace/.python/current/bin/python'
 
-# 启动 gunicorn -c gunicorn.conf.py main:app
+# 启动 gunicorn -c gunicorn_conf.py main:app
 
 # pstree -ap|grep gunicorn
-
