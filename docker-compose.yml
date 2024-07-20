@@ -1,0 +1,30 @@
+version: '1'
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-xcRDSoQqCfkoWdLJwf0i}
+            MYSQL_DATABASE:
+            MYSQL_USER:
+            MYSQL_PASSWORD:
+        ports:
+            - "3306:3306"
+        volumes:
+            - ~/data/mysql:/var/lib/mysql
+
+    web:
+        container_name: fastapi
+        build: .
+        restart: always
+        ports:
+            - "8000:8000"
+        depends_on:
+            - mysql
+        links:
+            - mysql
+       
+networks:
+  default:
+    name: fastapi
